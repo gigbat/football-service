@@ -1,5 +1,6 @@
 package com.dev.cinema.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +12,11 @@ import javax.persistence.Table;
 public class Movie {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column (name = "movie_id")
     private Long id;
+    @Column (name = "movie_title")
     private String title;
+    @Column (name = "movie_description")
     private String description;
 
     public Long getId() {
