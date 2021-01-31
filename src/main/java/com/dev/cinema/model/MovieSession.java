@@ -1,6 +1,6 @@
 package com.dev.cinema.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +20,7 @@ public class MovieSession {
     private Movie movie;
     @ManyToOne
     private CinemaHall cinemaHall;
-    private LocalDate localDate;
+    private LocalDateTime localDateTime;
 
     public Long getId() {
         return id;
@@ -46,18 +46,18 @@ public class MovieSession {
         this.cinemaHall = cinemaHall;
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
+    public void setLocalDate(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 
     @Override
     public String toString() {
         return "MovieSession - [id = " + id
                 + movie + ", " + cinemaHall
-                + ", date " + localDate.toString() + "]";
+                + ", date " + localDateTime.toString() + "]";
     }
 }

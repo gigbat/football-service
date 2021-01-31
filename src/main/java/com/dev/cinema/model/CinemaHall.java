@@ -11,6 +11,7 @@ public class CinemaHall {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private int capacity;
+    private String description;
 
     public Long getId() {
         return id;
@@ -26,6 +27,14 @@ public class CinemaHall {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

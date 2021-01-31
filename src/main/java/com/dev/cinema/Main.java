@@ -8,6 +8,8 @@ import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Main {
@@ -48,32 +50,32 @@ public class Main {
         cinemaHallService.add(cinemaHall2);
         cinemaHallService.getAll().forEach(System.out::println);
 
-        LocalDate localDate = LocalDate.of(2021, 1, 31);
+        LocalDateTime localDateTime = LocalDateTime.of(2021, 1, 31, 10, 0);
 
         MovieSession movieSession = new MovieSession();
-        movieSession.setLocalDate(localDate);
+        movieSession.setLocalDate(localDateTime);
         movieSession.setMovie(movie2);
         movieSession.setCinemaHall(cinemaHall);
 
         MovieSession movieSession1 = new MovieSession();
-        LocalDate localDate1 = LocalDate.of(2021, 1, 30);
-        movieSession1.setLocalDate(localDate1);
+        LocalDateTime localDateTime1 = LocalDateTime.of(2021, 1, 30,15, 0);
+        movieSession1.setLocalDate(localDateTime1);
         movieSession1.setMovie(movie);
         movieSession1.setCinemaHall(cinemaHall1);
 
         MovieSession movieSession2 = new MovieSession();
-        LocalDate localDate2 = LocalDate.of(2021, 2, 1);
-        movieSession2.setLocalDate(localDate2);
+        LocalDateTime localDateTime2 = LocalDateTime.of(2021, 2, 1, 20, 0);
+        movieSession2.setLocalDate(localDateTime2);
         movieSession2.setMovie(movie1);
         movieSession2.setCinemaHall(cinemaHall);
 
         MovieSession movieSession3 = new MovieSession();
-        movieSession3.setLocalDate(localDate);
+        movieSession3.setLocalDate(localDateTime);
         movieSession3.setMovie(movie2);
         movieSession3.setCinemaHall(cinemaHall);
 
         MovieSession movieSession4 = new MovieSession();
-        movieSession4.setLocalDate(localDate);
+        movieSession4.setLocalDate(localDateTime);
         movieSession4.setMovie(movie2);
         movieSession4.setCinemaHall(cinemaHall1);
 
@@ -85,8 +87,10 @@ public class Main {
         System.out.println(movieSessionService.add(movieSession3));
         System.out.println(movieSessionService.add(movieSession4));
         System.out.println("==========================================");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         List<MovieSession> availableSessions = movieSessionService
-                .findAvailableSessions(3L, localDate);
+                .findAvailableSessions(3L, LocalDate
+                        .parse(dateTimeFormatter.format(localDateTime)));
         availableSessions.forEach(System.out::println);
     }
 }

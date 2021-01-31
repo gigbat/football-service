@@ -5,6 +5,7 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.MovieSession;
 import com.dev.cinema.util.HibernateUtil;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,10 +18,11 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<MovieSession> query = session
                     .createQuery("select ms from MovieSession ms inner join ms.movie m "
-                                    + "where m.id = :id and ms.localDate = :date",
+                                    + "where m.id = :id "
+                                    + "and date_format(ms.localDateTime, '%Y-%m-%d') = :date",
                             MovieSession.class);
             query.setParameter("id", movieId);
-            query.setParameter("date", date);
+            query.setParameter("date", DateTimeFormatter.ofPattern("yyyy-MM-dd").format(date));
             return query.getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Can't find available sessions by movie id "
