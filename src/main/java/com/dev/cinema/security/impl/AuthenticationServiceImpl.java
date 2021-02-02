@@ -18,7 +18,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public User login(String email, String password) throws AuthenticationException {
         Optional<User> user = userService.findByEmail(email);
         if (user.isPresent()) {
-            byte[] salt = HashUtil.getSalt();
             String hashPassword = HashUtil.hashPassword(password, user.get().getSalt());
             if (user.get().getPassword().equals(hashPassword)) {
                 return user.get();
