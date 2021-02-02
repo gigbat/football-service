@@ -1,6 +1,7 @@
 package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.MovieSessionDao;
+import com.dev.cinema.exception.DataProcessingException;
 import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.MovieSession;
 import com.dev.cinema.util.HibernateUtil;
@@ -25,7 +26,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             query.setParameter("date", DateTimeFormatter.ofPattern("yyyy-MM-dd").format(date));
             return query.getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Can't find available sessions by movie id "
+            throw new DataProcessingException("Can't find available sessions by movie id "
                     + movieId + " and by movie date " + date.toString(), e);
         }
     }
