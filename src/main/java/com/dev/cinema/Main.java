@@ -1,9 +1,12 @@
 package com.dev.cinema;
 
+import com.dev.cinema.exception.AuthenticationException;
 import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
+import com.dev.cinema.model.User;
+import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
@@ -92,5 +95,26 @@ public class Main {
                 .findAvailableSessions(3L, LocalDate
                         .parse(dateTimeFormatter.format(localDateTime)));
         availableSessions.forEach(System.out::println);
+
+        System.out.println("===========================================");
+        AuthenticationService authenticationService = (AuthenticationService) injector
+                .getInstance(AuthenticationService.class);
+
+        String log = "123";
+        String pwd = "hello";
+        authenticationService.register(log, pwd);
+
+        String log1 = "321";
+        String pwd1 = "goodbye";
+        authenticationService.register(log1, pwd1);
+
+        String log2 = "1010";
+        String pwd2 = "qweasddfge";
+        authenticationService.register(log2, pwd2);
+
+        System.out.println(authenticationService.login(log1, pwd1));
+        System.out.println(authenticationService.login(log2, pwd2));
+        System.out.println(authenticationService.login(log, pwd));
+        System.out.println(authenticationService.login(log1, pwd));
     }
 }

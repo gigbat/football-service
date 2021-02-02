@@ -1,31 +1,32 @@
 package com.dev.cinema.dao.impl;
 
-import com.dev.cinema.dao.CinemaHallDao;
+import com.dev.cinema.dao.UserDao;
 import com.dev.cinema.exception.DataProcessingException;
 import com.dev.cinema.lib.Dao;
-import com.dev.cinema.model.CinemaHall;
+import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
-import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import java.util.Optional;
 
 @Dao
-public class CinemaHallDaoImpl implements CinemaHallDao {
+public class UserDaoImpl implements UserDao {
     @Override
-    public CinemaHall add(CinemaHall cinemaHall) {
+    public User add(User user) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.save(cinemaHall);
+            session.save(user);
             transaction.commit();
-            return cinemaHall;
+            return user;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't add the cinema hall " + cinemaHall, e);
+            throw new DataProcessingException("Can't add the user", e);
         } finally {
             if (session != null) {
                 session.close();
@@ -34,12 +35,13 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
     }
 
     @Override
-    public List<CinemaHall> getAll() {
+    public Optional<User> findByEmail(String email) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from CinemaHall", CinemaHall.class)
-                    .getResultList();
+            Query<User> query = session.createQuery("select u from User u where u.email = :email");
+            query.setParameter("email", email);
+            return query.uniqueResultOptional();
         } catch (Exception e) {
-            throw new RuntimeException("Can't get all cinema hall");
+            throw new DataProcessingException("Can't find account by the email " + email, e);
         }
     }
 }
