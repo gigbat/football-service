@@ -5,10 +5,13 @@ import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
+import com.dev.cinema.model.ShoppingCart;
+import com.dev.cinema.model.User;
 import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.ShoppingCartService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -111,9 +114,17 @@ public class Main {
         String pwd2 = "qweasddfge";
         authenticationService.register(log2, pwd2);
 
-        System.out.println(authenticationService.login(log1, pwd1));
-        System.out.println(authenticationService.login(log2, pwd2));
-        System.out.println(authenticationService.login(log, pwd));
-        System.out.println(authenticationService.login(log1, pwd));
+        System.out.println("============================================");
+        User user = authenticationService.login(log1, pwd1);
+        ShoppingCartService shoppingCartService = (ShoppingCartService) injector
+                .getInstance(ShoppingCartService.class);
+        shoppingCartService.addSession(movieSession, user);
+        shoppingCartService.addSession(movieSession1, user);
+        shoppingCartService.addSession(movieSession2, user);
+        shoppingCartService.addSession(movieSession3, user);
+        System.out.println(shoppingCartService.getByUser(user));
+        ShoppingCart cart = shoppingCartService.getByUser(user);
+        shoppingCartService.clear(cart);
+        System.out.println(shoppingCartService.getByUser(user));
     }
 }
