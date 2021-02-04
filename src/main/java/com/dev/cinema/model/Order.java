@@ -58,6 +58,7 @@ public class Order {
     public String toString() {
         return "Order - [id = " + id
                 + ", tickets = " + tickets
+                + ", oder date = " + orderDate
                 + ", user = " + user + "]";
     }
 }
