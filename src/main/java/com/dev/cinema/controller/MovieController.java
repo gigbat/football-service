@@ -24,12 +24,12 @@ public class MovieController {
         this.movieMapper = movieMapper;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public void create(@RequestBody MovieRequestDto movieRequestDto) {
         movieService.add(movieMapper.convert(movieRequestDto));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Movie> getAll() {
         return movieService.getAll();
     }

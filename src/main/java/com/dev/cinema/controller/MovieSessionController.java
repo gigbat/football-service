@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,12 +33,12 @@ public class MovieSessionController {
         this.movieSessionMapper = movieSessionMapper;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public void create(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
         movieSessionService.add(movieSessionMapper.toEntity(movieSessionRequestDto));
     }
 
-    @GetMapping("/all")
+    @GetMapping("/sessions")
     public List<MovieSessionResponseDto> findAvailableSessions(
             @RequestParam Long movieId, @RequestParam @DateTimeFormat(pattern =
                     "yyyy-MM-dd") LocalDate date) {
@@ -48,13 +49,17 @@ public class MovieSessionController {
                 .collect(Collectors.toList());
     }
 
-    @PutMapping("/update")
-    public void update(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
-        movieSessionService.update(movieSessionMapper.toEntity(movieSessionRequestDto));
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+        MovieSession movieSession = movieSessionMapper.toEntity(movieSessionRequestDto);
+        movieSession.setId(id);
+        movieSessionService.update(movieSession);
     }
 
-    @DeleteMapping("/remove")
-    public void remove(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
-        movieSessionService.remove(movieSessionMapper.toEntity(movieSessionRequestDto));
+    @DeleteMapping("/{id}")
+    public void remove(@PathVariable Long id, @RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+        MovieSession movieSession = movieSessionMapper.toEntity(movieSessionRequestDto);
+        movieSession.setId(id);
+        movieSessionService.remove(movieSession);
     }
 }
