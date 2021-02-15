@@ -26,4 +26,21 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     public MovieSession add(MovieSession sessionMovie) {
         return movieSessionDao.add(sessionMovie);
     }
+
+    @Override
+    public void update(MovieSession movieSession) {
+        movieSessionDao.update(movieSession);
+    }
+
+    @Override
+    public void remove(Long id) {
+        movieSessionDao.remove(id);
+    }
+
+    @Override
+    public MovieSession get(Long id) {
+        return movieSessionDao.get(id).orElseThrow(()
+                -> new RuntimeException("Movie session by id " + id
+                + " wasn't found"));
+    }
 }
