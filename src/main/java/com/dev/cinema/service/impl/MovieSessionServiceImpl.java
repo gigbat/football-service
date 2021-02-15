@@ -33,7 +33,14 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     }
 
     @Override
-    public void remove(MovieSession movieSession) {
-        movieSessionDao.remove(movieSession);
+    public void remove(Long id) {
+        movieSessionDao.remove(id);
+    }
+
+    @Override
+    public MovieSession get(Long id) {
+        return movieSessionDao.get(id).orElseThrow(()
+                -> new RuntimeException("Movie session by id " + id
+                + " wasn't found"));
     }
 }

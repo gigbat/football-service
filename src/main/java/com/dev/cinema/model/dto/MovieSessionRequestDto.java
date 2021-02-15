@@ -1,27 +1,9 @@
 package com.dev.cinema.model.dto;
 
 public class MovieSessionRequestDto {
-    private String movieTitle;
-    private int cinemaHallCapacity;
     private String localDateTime;
     private Long movieId;
     private Long cinemaHallId;
-
-    public String getMovieTitle() {
-        return movieTitle;
-    }
-
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
-    }
-
-    public int getCinemaHallCapacity() {
-        return cinemaHallCapacity;
-    }
-
-    public void setCinemaHallCapacity(int cinemaHallCapacity) {
-        this.cinemaHallCapacity = cinemaHallCapacity;
-    }
 
     public String getLocalDateTime() {
         return localDateTime;

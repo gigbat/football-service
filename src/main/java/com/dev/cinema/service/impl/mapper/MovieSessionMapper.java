@@ -23,7 +23,6 @@ public class MovieSessionMapper {
 
     public MovieSession toEntity(MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = new MovieSession();
-        movieSession.setId(movieSessionRequestDto.getMovieId());
         movieSession.setMovie(movieService.get(movieSessionRequestDto.getMovieId()));
         movieSession.setCinemaHall(cinemaHallService.get(movieSessionRequestDto
                 .getCinemaHallId()));
@@ -34,12 +33,12 @@ public class MovieSessionMapper {
     }
 
     public MovieSessionResponseDto toDto(MovieSession movieSession) {
-        MovieSessionResponseDto movieSessionResponseDto = new MovieSessionResponseDto();
-        movieSessionResponseDto.setCinemaHallCapacity(movieSession.getCinemaHall().getCapacity());
-        movieSessionResponseDto.setCinemaHallId(movieSession.getCinemaHall().getId());
-        movieSessionResponseDto.setLocalDateTime(movieSession.getLocalDateTime().toString());
-        movieSessionResponseDto.setMovieId(movieSession.getId());
-        movieSessionResponseDto.setMovieTitle(movieSession.getMovie().getTitle());
-        return movieSessionResponseDto;
+        MovieSessionResponseDto dto = new MovieSessionResponseDto();
+        dto.setMovieId(movieSession.getMovie().getId());
+        dto.setMovieTitle(movieSession.getMovie().getTitle());
+        dto.setMovieSessionId(movieSession.getId());
+        dto.setCinemaHallId(movieSession.getCinemaHall().getId());
+        dto.setLocalDateTime(movieSession.getLocalDateTime().toString());
+        return dto;
     }
 }

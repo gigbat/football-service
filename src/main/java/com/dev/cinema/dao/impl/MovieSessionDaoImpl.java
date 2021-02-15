@@ -6,6 +6,7 @@ import com.dev.cinema.model.MovieSession;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -83,23 +84,33 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
     }
 
     @Override
-    public void remove(MovieSession movieSession) {
+    public void remove(Long id) {
         Transaction transaction = null;
         Session session = null;
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
+            MovieSession movieSession = session.get(MovieSession.class, id);
             session.remove(movieSession);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Can't remove the movie session " + movieSession, e);
+            throw new RuntimeException("Can't remove the movie session by id " + id, e);
         } finally {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    @Override
+    public Optional<MovieSession> get(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.get(MovieSession.class, id));
+        } catch (Exception e) {
+            throw new RuntimeException("Can't get movie by id " + id, e);
         }
     }
 }

@@ -38,7 +38,7 @@ public class MovieSessionController {
         movieSessionService.add(movieSessionMapper.toEntity(movieSessionRequestDto));
     }
 
-    @GetMapping("/sessions")
+    @GetMapping("/available")
     public List<MovieSessionResponseDto> findAvailableSessions(
             @RequestParam Long movieId, @RequestParam @DateTimeFormat(pattern =
                     "yyyy-MM-dd") LocalDate date) {
@@ -58,10 +58,7 @@ public class MovieSessionController {
     }
 
     @DeleteMapping("/{id}")
-    public void remove(@PathVariable Long id,
-                       @RequestBody MovieSessionRequestDto movieSessionRequestDto) {
-        MovieSession movieSession = movieSessionMapper.toEntity(movieSessionRequestDto);
-        movieSession.setId(id);
-        movieSessionService.remove(movieSession);
+    public void remove(@PathVariable Long id) {
+        movieSessionService.remove(id);
     }
 }
