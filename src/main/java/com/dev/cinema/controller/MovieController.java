@@ -2,9 +2,11 @@ package com.dev.cinema.controller;
 
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.dto.MovieRequestDto;
+import com.dev.cinema.model.dto.MovieResponseDto;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.impl.mapper.MovieMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,11 +28,14 @@ public class MovieController {
 
     @PostMapping
     public void create(@RequestBody MovieRequestDto movieRequestDto) {
-        movieService.add(movieMapper.convert(movieRequestDto));
+        movieService.add(movieMapper.toEntity(movieRequestDto));
     }
 
     @GetMapping
-    public List<Movie> getAll() {
-        return movieService.getAll();
+    public List<MovieResponseDto> getAll() {
+        List<Movie> movies = movieService.getAll();
+        return movies.stream()
+                .map(movieMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
