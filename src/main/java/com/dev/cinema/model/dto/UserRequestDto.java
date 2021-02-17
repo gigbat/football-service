@@ -5,7 +5,13 @@ import com.dev.cinema.PasswordValidator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@PasswordValidator
+@PasswordValidator.List({
+        @PasswordValidator(
+                field = "password",
+                fieldMatch = "verifyPassword",
+                message = "Passwords do not match!"
+        )
+})
 public class UserRequestDto {
     @NotNull
     @EmailValidator
