@@ -12,7 +12,7 @@ public class OrderMapper {
     public OrderResponseDto toDto(Order order) {
         OrderResponseDto orderResponseDto = new OrderResponseDto();
         orderResponseDto.setId(order.getId());
-        orderResponseDto.setOrderDate(order.getOrderDate().toString());
+        orderResponseDto.setOrderDate(order.getOrderDate());
         List<Ticket> tickets = order.getTickets();
         List<Long> ticketsId = new ArrayList<>();
         for (Ticket ticket : tickets) {
