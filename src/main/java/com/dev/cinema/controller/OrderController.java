@@ -51,13 +51,9 @@ public class OrderController {
 
     @GetMapping
     public List<OrderResponseDto> getOrdersHistory(Authentication authentication) {
-        Object principal = authentication.getPrincipal();
-        User user = null;
-        if (principal instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) principal;
-            user = userService.get(userService.findByEmail(userDetails
-                    .getUsername()).get().getId());
-        }
+        String email = authentication.getName();
+        User user = userService.get(userService
+                .findByEmail(email).get().getId());
         List<Order> ordersHistory = orderService.getOrdersHistory(user);
         return ordersHistory.stream()
                 .map(orderMapper::toDto)

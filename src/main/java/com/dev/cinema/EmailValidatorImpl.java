@@ -8,7 +8,7 @@ public class EmailValidatorImpl
     private static final String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
 
     @Override
-    public boolean isValid(String field, ConstraintValidatorContext cvc) {
+    public boolean isValid(String field, ConstraintValidatorContext validator) {
         return field != null && field.matches(regex);
     }
 }

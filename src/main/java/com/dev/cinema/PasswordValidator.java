@@ -11,18 +11,12 @@ import javax.validation.Payload;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PasswordValidator {
-    String fieldMatch();
+    String fieldMatch() default "verifyPassword";
 
-    String message();
+    String message() default "Password wasn't matched";
 
-    String field();
+    String field() default "password";
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-
-    @Target({ ElementType.TYPE })
-    @Retention(RetentionPolicy.RUNTIME)
-    @interface List {
-        PasswordValidator[] value();
-    }
 }
