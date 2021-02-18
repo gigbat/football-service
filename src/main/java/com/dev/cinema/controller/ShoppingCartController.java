@@ -9,6 +9,7 @@ import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import com.dev.cinema.service.impl.mapper.ShoppingCartMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,15 +36,18 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/movie-sessions")
-    public void addSession(@RequestParam Long userId, Long movieSessionId) {
-        User user = userService.get(userId);
+    public void addSession(Authentication authentication,
+                           @RequestParam Long movieSessionId) {
+        String email = authentication.getName();
+        User user = userService.findByEmail(email).get();
         MovieSession movieSession = movieSessionService.get(movieSessionId);
         shoppingCartService.addSession(movieSession, user);
     }
 
     @GetMapping("/by-user")
-    public ShoppingCartResponseDto getByUser(@RequestParam Long userId) {
-        User user = userService.get(userId);
+    public ShoppingCartResponseDto getByUser(Authentication authentication) {
+        String email = authentication.getName();
+        User user = userService.findByEmail(email).get();
         ShoppingCart shoppingCart = shoppingCartService.getByUser(user);
         return shoppingCartMapper.toDto(shoppingCart);
     }
