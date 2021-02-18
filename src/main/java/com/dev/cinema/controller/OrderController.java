@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,21 +38,18 @@ public class OrderController {
 
     @PostMapping("/complete")
     public void completeOrder(Authentication authentication) {
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) principal;
-            ShoppingCart shoppingCart = shoppingCartService
-                    .getByUser(userService.findByEmail(userDetails.getUsername())
-                    .get());
-            orderService.completeOrder(shoppingCart);
-        }
+        String email = authentication.getName();
+        ShoppingCart shoppingCart = shoppingCartService
+                .getByUser(userService.findByEmail(email)
+                        .get());
+        orderService.completeOrder(shoppingCart);
     }
 
     @GetMapping
     public List<OrderResponseDto> getOrdersHistory(Authentication authentication) {
         String email = authentication.getName();
-        User user = userService.get(userService
-                .findByEmail(email).get().getId());
+        User user = userService
+                .findByEmail(email).get();
         List<Order> ordersHistory = orderService.getOrdersHistory(user);
         return ordersHistory.stream()
                 .map(orderMapper::toDto)

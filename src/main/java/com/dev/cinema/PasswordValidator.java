@@ -11,7 +11,7 @@ import javax.validation.Payload;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PasswordValidator {
-    String fieldMatch() default "verifyPassword";
+    String fieldMatch() default "repeatPassword";
 
     String message() default "Password wasn't matched";
 
