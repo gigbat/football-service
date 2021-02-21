@@ -6,7 +6,9 @@ import com.dev.cinema.service.RoleService;
 import com.dev.cinema.service.UserService;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class Injector {
     private final UserService userService;
     private final RoleService roleService;
