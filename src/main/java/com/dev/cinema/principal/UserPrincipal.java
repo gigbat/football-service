@@ -1,9 +1,9 @@
 package com.dev.cinema.principal;
 
 import com.dev.cinema.model.User;
+import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import java.util.Collection;
 
 public class UserPrincipal implements UserDetails {
     private User user;
