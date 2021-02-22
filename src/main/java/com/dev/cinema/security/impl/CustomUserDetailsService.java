@@ -28,9 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
             User user = userByEmail.get();
             UserBuilder userBuilder = withUsername(email);
             userBuilder.password(user.getPassword());
-            userBuilder.roles(user.getRole().getRole());
+            userBuilder.roles(user.getRole().toArray(new String[0]));
             return userBuilder.build();
         }
-        throw new RuntimeException("Can't load user by email");
+        throw new UsernameNotFoundException("Can't load user by email");
     }
 }

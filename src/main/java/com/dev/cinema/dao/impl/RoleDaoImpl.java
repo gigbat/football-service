@@ -2,6 +2,7 @@ package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.RoleDao;
 import com.dev.cinema.model.Role;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -39,10 +40,10 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role getRoleByName(String roleName) {
+    public Optional<Role> getRoleByName(String roleName) {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from Role where role = :roleName", Role.class)
-                    .setParameter("roleName", roleName).getSingleResult();
+                    .setParameter("roleName", roleName).uniqueResultOptional();
         } catch (Exception e) {
             throw new RuntimeException("Can't get the role by role name " + roleName, e);
         }

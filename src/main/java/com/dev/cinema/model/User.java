@@ -1,11 +1,12 @@
 package com.dev.cinema.model;
 
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,15 +18,15 @@ public class User {
     @Column (unique = true)
     private String email;
     private String password;
-    @ManyToOne
-    private Role role;
+    @ManyToMany
+    private Set<Role> role;
 
-    public void setRole(Role role) {
-        this.role = role;
+    public Set<Role> getRole() {
+        return role;
     }
 
-    public Role getRole() {
-        return role;
+    public void setRole(Set<Role> role) {
+        this.role = role;
     }
 
     public Long getId() {
