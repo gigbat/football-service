@@ -2,8 +2,11 @@ package com.dev.cinema.security.impl;
 
 import static org.springframework.security.core.userdetails.User.withUsername;
 
+import com.dev.cinema.model.Role;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.UserService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User.UserBuilder;
@@ -28,7 +31,12 @@ public class CustomUserDetailsService implements UserDetailsService {
             User user = userByEmail.get();
             UserBuilder userBuilder = withUsername(email);
             userBuilder.password(user.getPassword());
-            userBuilder.roles(user.getRole().toArray(new String[0]));
+
+            List<String> roles = new ArrayList<>();
+            for (Role role : user.getRole()) {
+                roles.add(role.getRole());
+            }
+            userBuilder.roles(roles.toArray(String[]::new));
             return userBuilder.build();
         }
         throw new UsernameNotFoundException("Can't load user by email");
