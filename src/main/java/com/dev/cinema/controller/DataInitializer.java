@@ -4,13 +4,12 @@ import com.dev.cinema.model.Role;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.RoleService;
 import com.dev.cinema.service.UserService;
-import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
+@Component
 public class DataInitializer {
     private final UserService userService;
     private final RoleService roleService;
@@ -29,9 +28,7 @@ public class DataInitializer {
 
         Role adminRole = new Role();
         adminRole.setRole("ADMIN");
-        Set<Role> rolesAdmin = new HashSet<>();
-        rolesAdmin.add(adminRole);
-        admin.setRole(rolesAdmin);
+        admin.setRole(Set.of(adminRole));
 
         Role userRole = new Role();
         userRole.setRole("USER");
