@@ -1,4 +1,4 @@
-package com.dev.cinema;
+package com.dev.cinema.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

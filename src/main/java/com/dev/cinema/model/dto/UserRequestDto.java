@@ -1,7 +1,7 @@
 package com.dev.cinema.model.dto;
 
-import com.dev.cinema.EmailValidator;
-import com.dev.cinema.PasswordValidator;
+import com.dev.cinema.validator.EmailValidator;
+import com.dev.cinema.validator.PasswordValidator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
