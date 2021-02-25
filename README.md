@@ -2,26 +2,21 @@
 This project used to N-tier architecture with Controllers layer, Services layer, Dao layer and DB layer.
 Project was developed according to SOLID principles with authorization, authentication and checking for valid data to give methods.
 
-#####UML diagram that describes the relationship between the entities.
-![Image alt](https://github.com/gigbat/hibernate-cinema/raw/hw-readMe/image.png)
-
 ##Roles and accesses
 ####Unauthorized users: 
 * Registration.
 * Authorization.
 ####Authorized user:
 * Registration of a new user.
-* Logout.
-* View a list of available movies.
-* View the list of cinema halls.
-* View the list of movies.
+* View a list of available footballs.
+* View the list of football halls.
+* View the list of footballs.
 * Make order.
 * View the shopping cart.
 ####Authorized admin:
 * Registration of a new user/admin.
-* Logout.
-* View/Add the list of cinema halls.
-* View/Add/Update/Remove the list of movies.
+* View/Add the list of football halls.
+* View/Add/Update/Remove the list of footballs.
 * View/Add order.
 * View/Add the shopping cart.
 * View the shopping cart by user.
@@ -37,7 +32,7 @@ Project was developed according to SOLID principles with authorization, authenti
 
 ##Setup your configuration
 1. Open __src/java/main/resources/db.properties__.
-2. db.url="jdbc:mysql://localhost:__your_port__/__your DB__?serverTimezone=UTC".
+2. db.url="jdbc:mysql://localhost:__your_port__/football?serverTimezone=UTC".
 3. db.username=__your username__.
 4. db.password=__your password__.
 5. Run the project using local server Tomcat.
