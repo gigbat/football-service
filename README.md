@@ -9,14 +9,14 @@ Project was developed according to SOLID principles with authorization, authenti
 ####Authorized user:
 * Registration of a new user.
 * View a list of available footballs.
-* View the list of football halls.
-* View the list of footballs.
+* View the list of stadiums.
+* View the list of football matches.
 * Make order.
 * View the shopping cart.
 ####Authorized admin:
 * Registration of a new user/admin.
-* View/Add the list of football halls.
-* View/Add/Update/Remove the list of footballs.
+* View/Add the list of stadiums.
+* View/Add/Update/Remove the list of football matches.
 * View/Add order.
 * View/Add the shopping cart.
 * View the shopping cart by user.

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/footballs")
+@RequestMapping("/football-matches")
 public class FootballController {
     private final FootballService footballService;
     private final FootballMapper footballMapper;

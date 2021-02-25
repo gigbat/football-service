@@ -28,10 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/footballs/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/footballs/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST,"/football-halls/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/football-halls/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/football-matches/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/football-matches/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/stadiums/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/stadiums/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST,"/football-sessions/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET,"/football-sessions/**").hasRole("ADMIN")
                 .and()
