@@ -1,4 +1,4 @@
-#Football-tickets
+#Application for buying tickets to football matches
 This project used to N-tier architecture with Controllers layer, Services layer, Dao layer and DB layer.
 Project was developed according to SOLID principles with authorization, authentication and checking for valid data to give methods.
 
